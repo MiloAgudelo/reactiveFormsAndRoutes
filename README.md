@@ -1,59 +1,36 @@
-# ReactiveFormsandRoutes
+# Taller de Angular – Formularios Reactivos, Rutas y Componentes
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.1.4.
+## Objetivo general
+Que el estudiante desarrolle competencias prácticas en la creación, validación y manejo de formularios reactivos con FormGroup, así como en el montaje y navegación entre componentes utilizando rutas básicas en Angular.
 
-## Development server
+## Actividades
 
-To start a local development server, run:
+### Creación de proyecto
+Crear un proyecto Angular nuevo con soporte para standalone components. Configurar AppComponent como raíz y dejar una ruta principal (/home). Evaluable: el proyecto compila y muestra correctamente un mensaje de bienvenida.
 
-```bash
-ng serve
-```
+### Rutas iniciales
+Configurar al menos tres rutas: /home, /about y /contact. Cada ruta debe mostrar un componente diferente con un texto identificador. Evaluable: navegación funcional usando routerLink y router-outlet.
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+### Formulario simple (reactivo)
+Crear un componente login con un formulario reactivo con FormGroup que tenga: Email y Password. Validaciones: email válido, password mínimo 6 caracteres. Evaluable: mostrar mensajes de error cuando el usuario intente enviar vacío.
 
-## Code scaffolding
+### Validaciones personalizadas
+Agregar un campo username en login y aplicar validación personalizada: no permitir espacios en blanco y debe tener mínimo 4 caracteres. Evaluable: validar en tiempo real y mostrar errores en la vista.
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+### Formulario de registro
+Crear un componente register con un formulario que use FormGroup para agrupar campos: Datos personales (nombre, edad) y Datos de acceso (email, password). Evaluable: que los dos grupos (FormGroup) estén bien definidos y validados.
 
-```bash
-ng generate component component-name
-```
+### Módulo de contacto con formulario
+Crear un componente contact-form que contenga un formulario con: Nombre, Email, Mensaje. Validar que todos los campos sean obligatorios y que el email tenga formato válido. Evaluable: el formulario debe mostrar errores y no permitir enviar vacío.
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+### Navegación entre componentes
+Crear un menú principal que permita navegar entre los componentes home, about, contact, login y register. Evaluable: el menú debe estar presente en todas las vistas y la navegación debe funcionar correctamente.
 
-```bash
-ng generate --help
-```
+### Estilos y retroalimentación visual
+Aplicar estilos CSS para que los campos inválidos se pinten de rojo y los válidos de verde. Evaluable: al escribir en los formularios, el estudiante debe ver en tiempo real la retroalimentación visual.
 
-## Building
+### Validación asincrónica (sencilla)
+En el formulario de registro, agregar un campo email que valide de forma asincrónica (con AsyncValidator) si ya existe en una lista simulada de emails registrados. Evaluable: mostrar mensaje de 'email ya existe' en tiempo real.
 
-To build the project run:
-
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+### Proyecto final integrador
+Construir una aplicación completa que tenga: un sistema de rutas con al menos 5 componentes, un formulario reactivo con FormGroup y validaciones personalizadas, y uso de validación asincrónica en un campo (ejemplo: email). Evaluable: entrega de la aplicación funcionando, con navegación completa y validaciones correctas.
