@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { usernameValidator } from './validators/username.validator';
 
 @Component({
   selector: 'app-login',
@@ -32,6 +33,19 @@ import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
           </label>
 
           <label class="space-y-2 block">
+            <span class="text-sm text-emerald-300">Usuario</span>
+            <input
+              formControlName="username"
+              type="text"
+              placeholder="Al menos 4 caracteres, sin espacios"
+              class="w-full bg-emerald-950/80 border border-emerald-700 px-4 py-2 rounded-lg text-emerald-100 focus:outline-none"
+            />
+            <p class="text-xs text-emerald-400" *ngIf="form.controls.username.touched && form.controls.username.invalid">
+              Debe tener mínimo 4 caracteres y no incluir espacios.
+            </p>
+          </label>
+
+          <label class="space-y-2 block">
             <span class="text-sm text-emerald-300">Password</span>
             <input
               formControlName="password"
@@ -58,6 +72,7 @@ import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 export class LoginComponent {
   protected readonly form = this.fb.nonNullable.group({
     email: ['', [Validators.required, Validators.email]],
+    username: ['', [Validators.required, usernameValidator()]],
     password: ['', [Validators.required, Validators.minLength(6)]]
   });
 
