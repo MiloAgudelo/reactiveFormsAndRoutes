@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { usernameValidator } from './validators/username.validator';
 
@@ -70,12 +70,11 @@ import { usernameValidator } from './validators/username.validator';
   `
 })
 export class LoginComponent {
+  private readonly fb = inject(FormBuilder);
   protected readonly form = this.fb.nonNullable.group({
     email: ['', [Validators.required, Validators.email]],
     username: ['', [Validators.required, usernameValidator()]],
     password: ['', [Validators.required, Validators.minLength(6)]]
   });
-
-  constructor(private readonly fb: FormBuilder) {}
 }
 
