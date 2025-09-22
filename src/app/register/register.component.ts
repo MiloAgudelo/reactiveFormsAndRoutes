@@ -1,6 +1,7 @@
 import { NgClass } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { AbstractControl, FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { emailTakenValidator } from './validators/email-taken.validator';
 
 @Component({
   selector: 'app-register',
@@ -84,11 +85,7 @@ import { AbstractControl, FormBuilder, ReactiveFormsModule, Validators } from '@
               [ngClass]="messageClasses(form.controls.access.controls.email)"
               *ngIf="form.controls.access.controls.email.touched"
             >
-              {{
-                form.controls.access.controls.email.invalid
-                  ? 'Introduce un email válido.'
-                  : 'Email válido.'
-              }}
+              {{ emailMessage }}
             </p>
           </label>
 
@@ -134,13 +131,35 @@ export class RegisterComponent {
       age: ['', [Validators.required, Validators.min(1)]]
     }),
     access: this.fb.nonNullable.group({
-      email: ['', [Validators.required, Validators.email]],
+      email: ['', [Validators.required, Validators.email], [emailTakenValidator()]],
       password: ['', [Validators.required, Validators.minLength(6)]]
     })
   });
 
   protected submit(): void {
     this.form.markAllAsTouched();
+  }
+
+  protected get emailMessage(): string {
+    const control = this.form.controls.access.controls.email;
+
+    if (!control.touched) {
+      return 'Introduce un email válido.';
+    }
+
+    if (control.hasError('required')) {
+      return 'Introduce un email válido.';
+    }
+
+    if (control.hasError('email')) {
+      return 'Introduce un email válido.';
+    }
+
+    if (control.hasError('emailTaken')) {
+      return 'Este email ya está registrado.';
+    }
+
+    return 'Email válido.';
   }
 
   protected controlClasses(control: AbstractControl): string {
