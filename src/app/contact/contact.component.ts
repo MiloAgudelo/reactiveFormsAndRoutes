@@ -1,10 +1,11 @@
+import { NgClass } from '@angular/common';
 import { Component, inject } from '@angular/core';
-import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-contact',
   standalone: true,
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, NgClass],
   template: `
     <main class="min-h-screen bg-emerald-950 text-emerald-100 flex items-center justify-center">
       <form
@@ -24,10 +25,15 @@ import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
               formControlName="name"
               type="text"
               placeholder="Nombre completo"
-              class="w-full bg-emerald-950/80 border border-emerald-700 px-4 py-2 rounded-lg text-emerald-100 focus:outline-none"
+              [ngClass]="controlClasses(form.controls.name)"
+              class="w-full bg-emerald-950/80 px-4 py-2 rounded-lg text-emerald-100 focus:outline-none"
             />
-            <p class="text-xs text-emerald-400" *ngIf="form.controls.name.touched && form.controls.name.invalid">
-              El nombre es obligatorio.
+            <p
+              class="text-xs"
+              [ngClass]="messageClasses(form.controls.name)"
+              *ngIf="form.controls.name.touched"
+            >
+              {{ form.controls.name.invalid ? 'El nombre es obligatorio.' : 'Nombre válido.' }}
             </p>
           </label>
 
@@ -37,10 +43,15 @@ import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
               formControlName="email"
               type="email"
               placeholder="correo@ejemplo.com"
-              class="w-full bg-emerald-950/80 border border-emerald-700 px-4 py-2 rounded-lg text-emerald-100 focus:outline-none"
+              [ngClass]="controlClasses(form.controls.email)"
+              class="w-full bg-emerald-950/80 px-4 py-2 rounded-lg text-emerald-100 focus:outline-none"
             />
-            <p class="text-xs text-emerald-400" *ngIf="form.controls.email.touched && form.controls.email.invalid">
-              Introduce un email válido.
+            <p
+              class="text-xs"
+              [ngClass]="messageClasses(form.controls.email)"
+              *ngIf="form.controls.email.touched"
+            >
+              {{ form.controls.email.invalid ? 'Introduce un email válido.' : 'Email válido.' }}
             </p>
           </label>
 
@@ -50,10 +61,15 @@ import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
               formControlName="message"
               rows="4"
               placeholder="Cuéntanos en qué podemos ayudarte"
-              class="w-full bg-emerald-950/80 border border-emerald-700 px-4 py-2 rounded-lg text-emerald-100 focus:outline-none"
+              [ngClass]="controlClasses(form.controls.message)"
+              class="w-full bg-emerald-950/80 px-4 py-2 rounded-lg text-emerald-100 focus:outline-none"
             ></textarea>
-            <p class="text-xs text-emerald-400" *ngIf="form.controls.message.touched && form.controls.message.invalid">
-              El mensaje es obligatorio.
+            <p
+              class="text-xs"
+              [ngClass]="messageClasses(form.controls.message)"
+              *ngIf="form.controls.message.touched"
+            >
+              {{ form.controls.message.invalid ? 'El mensaje es obligatorio.' : 'Mensaje válido.' }}
             </p>
           </label>
         </div>
@@ -79,6 +95,24 @@ export class ContactComponent {
 
   protected submit(): void {
     this.form.markAllAsTouched();
+  }
+
+  protected controlClasses(control: AbstractControl): string {
+    if (!control.touched) {
+      return 'border border-emerald-700 text-emerald-100';
+    }
+
+    return control.invalid
+      ? 'border border-red-500 text-emerald-100'
+      : 'border border-emerald-500 text-emerald-100';
+  }
+
+  protected messageClasses(control: AbstractControl): string {
+    if (!control.touched) {
+      return 'text-emerald-400';
+    }
+
+    return control.invalid ? 'text-red-400' : 'text-emerald-400';
   }
 }
 

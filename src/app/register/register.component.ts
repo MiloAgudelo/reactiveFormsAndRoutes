@@ -1,10 +1,11 @@
+import { NgClass } from '@angular/common';
 import { Component, inject } from '@angular/core';
-import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, NgClass],
   template: `
     <main class="min-h-screen bg-emerald-950 text-emerald-100 flex items-center justify-center">
       <form
@@ -26,10 +27,19 @@ import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
               formControlName="name"
               type="text"
               placeholder="Nombre completo"
-              class="w-full bg-emerald-950/80 border border-emerald-700 px-4 py-2 rounded-lg text-emerald-100 focus:outline-none"
+              [ngClass]="controlClasses(form.controls.personal.controls.name)"
+              class="w-full bg-emerald-950/80 px-4 py-2 rounded-lg text-emerald-100 focus:outline-none"
             />
-            <p class="text-xs text-emerald-400" *ngIf="form.controls.personal.controls.name.touched && form.controls.personal.controls.name.invalid">
-              El nombre es obligatorio y debe tener al menos 2 caracteres.
+            <p
+              class="text-xs"
+              [ngClass]="messageClasses(form.controls.personal.controls.name)"
+              *ngIf="form.controls.personal.controls.name.touched"
+            >
+              {{
+                form.controls.personal.controls.name.invalid
+                  ? 'El nombre es obligatorio y debe tener al menos 2 caracteres.'
+                  : 'Nombre válido.'
+              }}
             </p>
           </label>
 
@@ -40,10 +50,19 @@ import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
               type="number"
               min="1"
               placeholder="Edad"
-              class="w-full bg-emerald-950/80 border border-emerald-700 px-4 py-2 rounded-lg text-emerald-100 focus:outline-none"
+              [ngClass]="controlClasses(form.controls.personal.controls.age)"
+              class="w-full bg-emerald-950/80 px-4 py-2 rounded-lg text-emerald-100 focus:outline-none"
             />
-            <p class="text-xs text-emerald-400" *ngIf="form.controls.personal.controls.age.touched && form.controls.personal.controls.age.invalid">
-              Indica una edad válida (mayor o igual a 1).
+            <p
+              class="text-xs"
+              [ngClass]="messageClasses(form.controls.personal.controls.age)"
+              *ngIf="form.controls.personal.controls.age.touched"
+            >
+              {{
+                form.controls.personal.controls.age.invalid
+                  ? 'Indica una edad válida (mayor o igual a 1).'
+                  : 'Edad válida.'
+              }}
             </p>
           </label>
         </section>
@@ -57,10 +76,19 @@ import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
               formControlName="email"
               type="email"
               placeholder="correo@ejemplo.com"
-              class="w-full bg-emerald-950/80 border border-emerald-700 px-4 py-2 rounded-lg text-emerald-100 focus:outline-none"
+              [ngClass]="controlClasses(form.controls.access.controls.email)"
+              class="w-full bg-emerald-950/80 px-4 py-2 rounded-lg text-emerald-100 focus:outline-none"
             />
-            <p class="text-xs text-emerald-400" *ngIf="form.controls.access.controls.email.touched && form.controls.access.controls.email.invalid">
-              Introduce un email válido.
+            <p
+              class="text-xs"
+              [ngClass]="messageClasses(form.controls.access.controls.email)"
+              *ngIf="form.controls.access.controls.email.touched"
+            >
+              {{
+                form.controls.access.controls.email.invalid
+                  ? 'Introduce un email válido.'
+                  : 'Email válido.'
+              }}
             </p>
           </label>
 
@@ -70,10 +98,19 @@ import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
               formControlName="password"
               type="password"
               placeholder="Mínimo 6 caracteres"
-              class="w-full bg-emerald-950/80 border border-emerald-700 px-4 py-2 rounded-lg text-emerald-100 focus:outline-none"
+              [ngClass]="controlClasses(form.controls.access.controls.password)"
+              class="w-full bg-emerald-950/80 px-4 py-2 rounded-lg text-emerald-100 focus:outline-none"
             />
-            <p class="text-xs text-emerald-400" *ngIf="form.controls.access.controls.password.touched && form.controls.access.controls.password.invalid">
-              La contraseña debe tener al menos 6 caracteres.
+            <p
+              class="text-xs"
+              [ngClass]="messageClasses(form.controls.access.controls.password)"
+              *ngIf="form.controls.access.controls.password.touched"
+            >
+              {{
+                form.controls.access.controls.password.invalid
+                  ? 'La contraseña debe tener al menos 6 caracteres.'
+                  : 'Contraseña válida.'
+              }}
             </p>
           </label>
         </section>
@@ -104,6 +141,24 @@ export class RegisterComponent {
 
   protected submit(): void {
     this.form.markAllAsTouched();
+  }
+
+  protected controlClasses(control: AbstractControl): string {
+    if (!control.touched) {
+      return 'border border-emerald-700 text-emerald-100';
+    }
+
+    return control.invalid
+      ? 'border border-red-500 text-emerald-100'
+      : 'border border-emerald-500 text-emerald-100';
+  }
+
+  protected messageClasses(control: AbstractControl): string {
+    if (!control.touched) {
+      return 'text-emerald-400';
+    }
+
+    return control.invalid ? 'text-red-400' : 'text-emerald-400';
   }
 }
 

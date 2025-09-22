@@ -1,11 +1,12 @@
+import { NgClass } from '@angular/common';
 import { Component, inject } from '@angular/core';
-import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { usernameValidator } from './validators/username.validator';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, NgClass],
   template: `
     <main class="min-h-screen bg-emerald-950 text-emerald-100 flex items-center justify-center">
       <form
@@ -25,10 +26,15 @@ import { usernameValidator } from './validators/username.validator';
               formControlName="email"
               type="email"
               placeholder="usuario@correo.com"
-              class="w-full bg-emerald-950/80 border border-emerald-700 px-4 py-2 rounded-lg text-emerald-100 focus:outline-none"
+              [ngClass]="controlClasses(form.controls.email)"
+              class="w-full bg-emerald-950/80 px-4 py-2 rounded-lg text-emerald-100 focus:outline-none"
             />
-            <p class="text-xs text-emerald-400" *ngIf="form.controls.email.touched && form.controls.email.invalid">
-              Proporciona un email válido.
+            <p
+              class="text-xs"
+              [ngClass]="messageClasses(form.controls.email)"
+              *ngIf="form.controls.email.touched"
+            >
+              {{ form.controls.email.invalid ? 'Proporciona un email válido.' : 'Email válido.' }}
             </p>
           </label>
 
@@ -38,10 +44,15 @@ import { usernameValidator } from './validators/username.validator';
               formControlName="username"
               type="text"
               placeholder="Al menos 4 caracteres, sin espacios"
-              class="w-full bg-emerald-950/80 border border-emerald-700 px-4 py-2 rounded-lg text-emerald-100 focus:outline-none"
+              [ngClass]="controlClasses(form.controls.username)"
+              class="w-full bg-emerald-950/80 px-4 py-2 rounded-lg text-emerald-100 focus:outline-none"
             />
-            <p class="text-xs text-emerald-400" *ngIf="form.controls.username.touched && form.controls.username.invalid">
-              Debe tener mínimo 4 caracteres y no incluir espacios.
+            <p
+              class="text-xs"
+              [ngClass]="messageClasses(form.controls.username)"
+              *ngIf="form.controls.username.touched"
+            >
+              {{ form.controls.username.invalid ? 'Debe tener mínimo 4 caracteres y no incluir espacios.' : 'Usuario válido.' }}
             </p>
           </label>
 
@@ -51,10 +62,15 @@ import { usernameValidator } from './validators/username.validator';
               formControlName="password"
               type="password"
               placeholder="Mínimo 6 caracteres"
-              class="w-full bg-emerald-950/80 border border-emerald-700 px-4 py-2 rounded-lg text-emerald-100 focus:outline-none"
+              [ngClass]="controlClasses(form.controls.password)"
+              class="w-full bg-emerald-950/80 px-4 py-2 rounded-lg text-emerald-100 focus:outline-none"
             />
-            <p class="text-xs text-emerald-400" *ngIf="form.controls.password.touched && form.controls.password.invalid">
-              La contraseña debe tener al menos 6 caracteres.
+            <p
+              class="text-xs"
+              [ngClass]="messageClasses(form.controls.password)"
+              *ngIf="form.controls.password.touched"
+            >
+              {{ form.controls.password.invalid ? 'La contraseña debe tener al menos 6 caracteres.' : 'Contraseña válida.' }}
             </p>
           </label>
         </div>
@@ -76,5 +92,23 @@ export class LoginComponent {
     username: ['', [Validators.required, usernameValidator()]],
     password: ['', [Validators.required, Validators.minLength(6)]]
   });
+
+  protected controlClasses(control: AbstractControl): string {
+    if (!control.touched) {
+      return 'border border-emerald-700';
+    }
+
+    return control.invalid
+      ? 'border border-red-500 text-emerald-100'
+      : 'border border-emerald-500 text-emerald-100';
+  }
+
+  protected messageClasses(control: AbstractControl): string {
+    if (!control.touched) {
+      return 'text-emerald-400';
+    }
+
+    return control.invalid ? 'text-red-400' : 'text-emerald-400';
+  }
 }
 
