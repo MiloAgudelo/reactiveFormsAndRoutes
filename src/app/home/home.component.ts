@@ -11,13 +11,25 @@ import { Component } from '@angular/core';
           Formularios Reactivos, Rutas y Componentes
         </h2>
         <p class="text-base text-emerald-600">
-          Bienvenido. Avanza paso a paso con el enfoque minimalista de este taller y construye una base sólida.
+          Explora actividades guiadas para dominar formularios reactivos, validaciones personalizadas y navegación con rutas básicas en Angular.
         </p>
-        <div class="flex items-center justify-center gap-3 text-sm">
-          <span class="rounded-full bg-emerald-100 px-3 py-1 text-emerald-600">Reactivo</span>
-          <span class="rounded-full bg-emerald-100 px-3 py-1 text-emerald-600">Modular</span>
-          <span class="rounded-full bg-emerald-100 px-3 py-1 text-emerald-600">Accesible</span>
+        <div class="grid gap-3 text-sm text-emerald-700 md:grid-cols-3">
+          <div class="rounded-xl border border-emerald-100 bg-emerald-50 px-4 py-3">
+            <p class="font-semibold text-emerald-800">Formularios</p>
+            <p>FormGroup, validaciones síncronas y asincrónicas.</p>
+          </div>
+          <div class="rounded-xl border border-emerald-100 bg-emerald-50 px-4 py-3">
+            <p class="font-semibold text-emerald-800">Rutas</p>
+            <p>Standalone components, routerLink y navegación.</p>
+          </div>
+          <div class="rounded-xl border border-emerald-100 bg-emerald-50 px-4 py-3">
+            <p class="font-semibold text-emerald-800">Proyecto</p>
+            <p>Aplicación completa con retroalimentación visual.</p>
+          </div>
         </div>
+        <p class="text-xs uppercase tracking-[0.35em] text-emerald-400">
+          Objetivo general: competencias prácticas en Angular
+        </p>
       </div>
     </section>
   `
