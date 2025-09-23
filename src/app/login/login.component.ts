@@ -8,26 +8,26 @@ import { usernameValidator } from './validators/username.validator';
   standalone: true,
   imports: [ReactiveFormsModule, NgClass],
   template: `
-    <main class="min-h-screen bg-emerald-950 text-emerald-100 flex items-center justify-center">
+    <section class="min-h-[60vh] flex items-center justify-center">
       <form
         [formGroup]="form"
         (ngSubmit)="form.markAllAsTouched()"
-        class="w-full max-w-sm space-y-6 bg-emerald-900/40 border border-emerald-800 px-8 py-10 rounded-2xl"
+        class="w-full max-w-md space-y-6 rounded-3xl border border-emerald-100 bg-white px-8 py-10 shadow-sm"
       >
         <header class="space-y-2 text-center">
-          <h2 class="text-2xl font-semibold text-emerald-200">Inicio de sesión</h2>
-          <p class="text-sm text-emerald-300">Accede usando credenciales válidas.</p>
+          <h2 class="text-3xl font-semibold text-emerald-900">Inicio de sesión</h2>
+          <p class="text-sm text-emerald-500">Accede usando credenciales válidas.</p>
         </header>
 
         <div class="space-y-4">
           <label class="space-y-2 block">
-            <span class="text-sm text-emerald-300">Email</span>
+            <span class="text-sm text-emerald-600">Email</span>
             <input
               formControlName="email"
               type="email"
               placeholder="usuario@correo.com"
               [ngClass]="controlClasses(form.controls.email)"
-              class="w-full bg-emerald-950/80 px-4 py-2 rounded-lg text-emerald-100 focus:outline-none"
+              class="w-full rounded-xl border px-4 py-2 text-emerald-900 focus:outline-none focus:ring-2 focus:ring-emerald-400"
             />
             <p
               class="text-xs"
@@ -39,13 +39,13 @@ import { usernameValidator } from './validators/username.validator';
           </label>
 
           <label class="space-y-2 block">
-            <span class="text-sm text-emerald-300">Usuario</span>
+            <span class="text-sm text-emerald-600">Usuario</span>
             <input
               formControlName="username"
               type="text"
               placeholder="Al menos 4 caracteres, sin espacios"
               [ngClass]="controlClasses(form.controls.username)"
-              class="w-full bg-emerald-950/80 px-4 py-2 rounded-lg text-emerald-100 focus:outline-none"
+              class="w-full rounded-xl border px-4 py-2 text-emerald-900 focus:outline-none focus:ring-2 focus:ring-emerald-400"
             />
             <p
               class="text-xs"
@@ -57,13 +57,13 @@ import { usernameValidator } from './validators/username.validator';
           </label>
 
           <label class="space-y-2 block">
-            <span class="text-sm text-emerald-300">Password</span>
+            <span class="text-sm text-emerald-600">Password</span>
             <input
               formControlName="password"
               type="password"
               placeholder="Mínimo 6 caracteres"
               [ngClass]="controlClasses(form.controls.password)"
-              class="w-full bg-emerald-950/80 px-4 py-2 rounded-lg text-emerald-100 focus:outline-none"
+              class="w-full rounded-xl border px-4 py-2 text-emerald-900 focus:outline-none focus:ring-2 focus:ring-emerald-400"
             />
             <p
               class="text-xs"
@@ -77,12 +77,12 @@ import { usernameValidator } from './validators/username.validator';
 
         <button
           type="submit"
-          class="w-full bg-emerald-800 text-emerald-100 py-2 rounded-lg uppercase tracking-wide text-sm"
+          class="w-full rounded-xl bg-emerald-500 py-2 text-sm uppercase tracking-wide text-white shadow-sm"
         >
           Entrar
         </button>
       </form>
-    </main>
+    </section>
   `
 })
 export class LoginComponent {
@@ -95,12 +95,12 @@ export class LoginComponent {
 
   protected controlClasses(control: AbstractControl): string {
     if (!control.touched) {
-      return 'border border-emerald-700';
+      return 'border-emerald-200 text-emerald-900';
     }
 
     return control.invalid
-      ? 'border border-red-500 text-emerald-100'
-      : 'border border-emerald-500 text-emerald-100';
+      ? 'border-red-400 text-emerald-900'
+      : 'border-emerald-400 text-emerald-900';
   }
 
   protected messageClasses(control: AbstractControl): string {
@@ -108,7 +108,7 @@ export class LoginComponent {
       return 'text-emerald-400';
     }
 
-    return control.invalid ? 'text-red-400' : 'text-emerald-400';
+    return control.invalid ? 'text-red-500' : 'text-emerald-500';
   }
 }
 

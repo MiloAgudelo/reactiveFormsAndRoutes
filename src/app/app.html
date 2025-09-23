@@ -1,17 +1,22 @@
-<main class="min-h-screen bg-emerald-950 text-emerald-100">
-  <header class="sticky top-0 bg-emerald-900/80 backdrop-blur px-6 py-4 border-b border-emerald-800">
-    <div class="flex flex-col gap-2">
-      <p class="text-xs uppercase tracking-[0.3em] text-emerald-400">Taller Angular</p>
-      <nav class="flex flex-wrap gap-4 text-sm text-emerald-200">
-        <a routerLink="/home" routerLinkActive="text-emerald-300 font-semibold">Home</a>
-        <a routerLink="/about" routerLinkActive="text-emerald-300 font-semibold">About</a>
-        <a routerLink="/contact" routerLinkActive="text-emerald-300 font-semibold">Contact</a>
-        <a routerLink="/login" routerLinkActive="text-emerald-300 font-semibold">Login</a>
-        <a routerLink="/register" routerLinkActive="text-emerald-300 font-semibold">Register</a>
+<main class="min-h-screen bg-white text-emerald-900">
+  <header class="sticky top-0 border-b border-emerald-100 bg-white/95 backdrop-blur">
+    <div class="mx-auto flex max-w-5xl flex-col gap-3 px-6 py-4 md:flex-row md:items-center md:justify-between">
+      <div class="space-y-1">
+        <p class="text-xs uppercase tracking-[0.3em] text-emerald-500">Taller Angular</p>
+        <h1 class="text-lg font-semibold text-emerald-800">Formularios Reactivos, Rutas y Componentes</h1>
+      </div>
+      <nav class="flex flex-wrap gap-4 text-sm text-emerald-600">
+        <a routerLink="/home" routerLinkActive="text-emerald-900 font-semibold">Home</a>
+        <a routerLink="/about" routerLinkActive="text-emerald-900 font-semibold">About</a>
+        <a routerLink="/contact" routerLinkActive="text-emerald-900 font-semibold">Contact</a>
+        <a routerLink="/login" routerLinkActive="text-emerald-900 font-semibold">Login</a>
+        <a routerLink="/register" routerLinkActive="text-emerald-900 font-semibold">Register</a>
       </nav>
     </div>
   </header>
   <section class="py-12">
-    <router-outlet />
+    <div class="mx-auto max-w-5xl px-6">
+      <router-outlet />
+    </div>
   </section>
 </main>
